@@ -1,9 +1,10 @@
-FROM python:3.7-alpine
+FROM python:3.7
 
-RUN pip install pipenv
+RUN pip install Django==2.2.2 \
+                psycopg2==2.7.1
 
 COPY . /app/
 WORKDIR /app/
-RUN pipenv install
+RUN pip install -r requirements.txt
 
-ENTRYPOINT ["sh", "-c", "cd bootstrap_signup_form && pipenv run python manage.py migrate && pipenv run python manage.py runserver 0.0.0.0:8000"]
+ENTRYPOINT ["sh", "-c", "cd bootstrap_signup_form && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
